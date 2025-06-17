@@ -12,19 +12,18 @@ const isActive = (path) => {
 };
 
 const menuItems = [
-  { name: "Dashboard", path: "/",  },
-  { name: "Borrow", path: "/borrow",},
-  { name: "Students", path: "/student", },
-  { name: "Book", path: "/book", },
-
-
+  { name: "Dashboard", path: "/dashboard" },
+  { name: "Borrow", path: "/borrow" },
+  { name: "Students", path: "/student" },
+  { name: "Book", path: "/book" },
 ];
 </script>
 
 <template>
-  <div class="flex h-screen bg-gray-50  " >
-
-    <aside class="w-64 bg-green-900 dark:bg-green-700 shadow-lg p-6 flex flex-col justify-between">
+  <div class="flex h-screen bg-gray-50">
+    <aside
+      class="w-64 bg-green-900 dark:bg-green-700 shadow-lg p-6 flex flex-col justify-between"
+    >
       <div>
         <img :src="Image" alt="Avatar" class="object-cover w-42 h-18 p-3" />
         <nav class="space-y-3">

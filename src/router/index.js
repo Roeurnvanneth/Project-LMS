@@ -9,7 +9,7 @@ import Hero from "../Auth/login.vue";
 
 const routes = [
   {
-    path: "/login-dasboard",
+    path: "/login-book",
     component: Login,
     meta: { layout: "auth" },
   },
