@@ -4,7 +4,7 @@ module.exports = {
     extend: {},
   },
   plugins: [
-    require("flowbite/plugin"), // if you want flowbite plugin for Tailwind
+    require("flowbite/plugin"),
   ],
   darkMode: "class",
 };

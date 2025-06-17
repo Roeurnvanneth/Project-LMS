@@ -9,10 +9,17 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@emotion/react": "^11.14.0",
+    "@emotion/styled": "^11.14.0",
+    "@mui/material": "^7.1.1",
+    "@mui/x-data-grid": "^8.5.2",
     "@tailwindcss/vite": "^4.1.10",
     "flowbite": "^3.1.2",
     "lucide-vue-next": "^0.514.0",
+    "primeicons": "^7.0.0",
+    "primevue": "^4.3.5",
     "vue": "^3.5.13",
+    "vue-good-table-next": "^0.2.2",
     "vue-router": "^4.5.1"
   },
   "devDependencies": {

@@ -22,7 +22,7 @@ const AdminName = "ROEURN VANNETH";
           <p class="text-sm text-gray-600 dark:text-gray-300">ID : 22492-3</p>
         </div>
         <button
-          @click="handleLogout"
+          
           class="ml-auto px-4 py-2  text-white rounded bg-gradient-to-br from-cyan-500 to-green-500 rounded-lg shadow bg-green-500 focus:outline-none focus:ring-4 focus:ring-cyan-300 transition rounded-lg"
         >
           Log Out
