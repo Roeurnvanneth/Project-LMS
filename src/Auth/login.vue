@@ -10,9 +10,8 @@ const handleLogin = () => {
 </script>
 
 <template>
-  <div class="min-h-screen flex items-center justify-center bg-gradient-to-br from-green-100 to-blue-200">
+  <div class="min-h-screen  flex items-center justify-center bg-gradient-to-br from-green-100 to-blue-200">
     <div class="bg-white/40 backdrop-blur-md rounded-lg shadow-lg p-8 flex w-full max-w-5xl">
-      <!-- Left Section -->
       <div class="w-1/2 flex flex-col justify-center items-center space-y-6 px-6">
         <img src="../assets/Lidrary.png" alt="Logo" class="w-16 h-16" />
         <form @submit.prevent="handleLogin" class="w-full space-y-4">
@@ -43,19 +42,15 @@ const handleLogin = () => {
         </form>
       </div>
 
-      <!-- Right Section -->
       <div class="w-1/2 flex flex-col justify-center items-center text-center bg-white/30 rounded-lg px-8">
-        <h2 class="text-2xl font-semibold text-white">Welcome to Library</h2>
-        <p class="text-white mt-2">Please Complete the information</p>
+        <h2 class="text-2xl font-semibold text-black">Welcome to Library</h2>
+        <p class="text-green mt-2">Please Complete the information</p>
         <div class="mt-4">
           <img src="../assets/Lidrary.png" alt="Logo" class="w-16 h-16" />
         </div>
       </div>
     </div>
 
-    <!-- Author -->
-    <div class="absolute bottom-4 text-sm text-gray-600">
-      © 2025 by Roeurn Vanneth
-    </div>
+   
   </div>
 </template>
