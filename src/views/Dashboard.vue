@@ -4,8 +4,6 @@ import MonthlyChart from '../components/MonthlyChart.vue'
 
 <template>
   <div class="min-h-screen bg-gray-100 p-4">
-
-    <!-- Header -->
     <div class="mb-6">
       <h1 class="text-3xl font-semibold text-gray-800">Dashboard</h1>
       <p class="text-sm text-gray-500 mt-1">
@@ -13,7 +11,7 @@ import MonthlyChart from '../components/MonthlyChart.vue'
       </p>
     </div>
 
-    <!-- Summary Cards -->
+  
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
       <div class="bg-white p-6 rounded-lg shadow-md">
         <h2 class="text-sm text-gray-500 font-medium">Students</h2>
@@ -35,40 +33,40 @@ import MonthlyChart from '../components/MonthlyChart.vue'
 
       <div class="bg-white p-6 rounded-lg shadow-md">
         <h2 class="text-sm text-gray-500 font-medium">Total</h2>
-        <p class="text-2xl font-bold text-gray-800 mt-1">200</p>
-        <p class="text-red-500 text-sm mt-1">▼ 1.10% <span class="text-gray-500">from this month</span></p>
+        <p class="text-2xl font-bold text-gray-800 mt-1">800</p>
+        <p class="text-green-500 text-sm mt-1">▲ 1.10% <span class="text-gray-500">from this month</span></p>
       </div>
     </div>
 
-    <!-- Chart & Product Sales -->
+   
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-4">
-      <!-- Chart -->
+    
       <div class="bg-white p-6 rounded-lg shadow-md col-span-2">
         <h2 class="text-blue-600 font-semibold text-sm mb-2">Monthly Recap Report</h2>
         <MonthlyChart />
       </div>
 
-      <!-- Product List -->
+     
       <div class="bg-white p-6 rounded-lg shadow-md">
         <div class="flex items-center justify-between mb-4">
-          <h2 class="text-blue-600 font-semibold text-sm">Products Sold</h2>
+          <h2 class="text-blue-600 font-semibold text-sm">List about Student</h2>
           <button class="text-sm px-3 py-1 border rounded text-blue-700 border-blue-300">Month</button>
         </div>
 
         <div class="space-y-3 text-sm text-gray-700">
           <div>
             <p class="flex justify-between">
-              <span>Oblong T-Shirt</span>
+              <span>Student</span>
               <span>600 of 800 Items</span>
             </p>
             <div class="h-2 bg-gray-200 rounded">
-              <div class="h-full bg-orange-400 rounded" style="width: 75%"></div>
+              <div class="h-full bg-orange-400 rounded" style="width: 90%"></div>
             </div>
           </div>
 
           <div>
             <p class="flex justify-between">
-              <span>Gundam 90'Editions</span>
+              <span>Books</span>
               <span>500 of 800 Items</span>
             </p>
             <div class="h-2 bg-gray-200 rounded">
@@ -78,7 +76,7 @@ import MonthlyChart from '../components/MonthlyChart.vue'
 
           <div>
             <p class="flex justify-between">
-              <span>Rounded Hat</span>
+              <span>Borrows</span>
               <span>455 of 800 Items</span>
             </p>
             <div class="h-2 bg-gray-200 rounded">
@@ -88,7 +86,7 @@ import MonthlyChart from '../components/MonthlyChart.vue'
 
           <div>
             <p class="flex justify-between">
-              <span>Indomie Goreng</span>
+              <span>Total</span>
               <span>400 of 800 Items</span>
             </p>
             <div class="h-2 bg-gray-200 rounded">
@@ -96,15 +94,7 @@ import MonthlyChart from '../components/MonthlyChart.vue'
             </div>
           </div>
 
-          <div>
-            <p class="flex justify-between">
-              <span>Remote Control Car Racing</span>
-              <span>200 of 800 Items</span>
-            </p>
-            <div class="h-2 bg-gray-200 rounded">
-              <div class="h-full bg-green-300 rounded" style="width: 25%"></div>
-            </div>
-          </div>
+          
         </div>
 
         <div class="mt-4 text-right">
