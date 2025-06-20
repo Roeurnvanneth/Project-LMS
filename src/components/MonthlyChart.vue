@@ -1,4 +1,4 @@
-<!-- components/MonthlyChart.vue -->
+
 <script setup>
 import {
   Line
@@ -44,6 +44,7 @@ const chartOptions = {
   plugins: {
     legend: {
       display: false
+      
     }
   },
   scales: {

@@ -7,6 +7,7 @@ import Student from "@/views/student.vue";
 import Login from "@/Auth/login-dasboard.vue";
 import Hero from "../Auth/login.vue";
 
+
 const routes = [
   {
     path: "/login-book",
@@ -42,6 +43,7 @@ const routes = [
     component: Hero,
     meta: { layout: "auth" },
   },
+  
 ];
 
 const router = createRouter({
