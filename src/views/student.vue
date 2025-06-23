@@ -1,25 +1,33 @@
 <script setup>
-import { ref, computed } from 'vue'
+import { ref, computed, onMounted } from 'vue'
+import axios from 'axios'
 
-const students = ref([
-  { id: 1, name: 'Student 1', class: 'A', idCard: 18 },
-  { id: 2, name: 'Student 2', class: 'B', idCard: 19 },
-  { id: 3, name: 'Student 3', class: 'A', idCard: 20 },
-  { id: 4, name: 'Student 4', class: 'C', idCard: 21 },
-  { id: 5, name: 'Student 5', class: 'D', idCard: 22 },
-  { id: 6, name: 'Student 6', class: 'B', idCard: 23 },
-  { id: 7, name: 'Student 7', class: 'A', idCard: 24 },
-  { id: 8, name: 'Student 8', class: 'C', idCard: 25 },
-  { id: 9, name: 'Student 9', class: 'B', idCard: 26 },
-])
 
+const students = ref([])
 const searchQuery = ref('')
 const currentPage = ref(1)
 const studentsPerPage = 4
 
+// Fetch API 
+const fetchStudents = async () => {
+  try {
+    const token = localStorage.getItem('token') 
+    const res = await axios.get('http://localhost:3000/api/students?page=1&limit=100', {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    })
+    students.value = res.data.students
+  } catch (err) {
+    console.error('Failed to fetch students:', err)
+  }
+}
+
+onMounted(fetchStudents)
+
 const filteredStudents = computed(() =>
   students.value.filter((student) =>
-    student.name.toLowerCase().includes(searchQuery.value.toLowerCase())
+    student.full_name.toLowerCase().includes(searchQuery.value.toLowerCase())
   )
 )
 
@@ -32,7 +40,6 @@ const paginatedStudents = computed(() => {
   return filteredStudents.value.slice(start, start + studentsPerPage)
 })
 
-// Actions
 const setPage = (page) => {
   currentPage.value = page
 }
@@ -44,6 +51,7 @@ const deleteStudent = (id) => {
 
 <template>
   <div class="min-h-screen bg-gradient-to-br from-green-500 to-blue-500 p-6">
+   
     <div class="sticky top-0 z-10 bg-white shadow-md p-4 rounded-lg">
       <div class="flex flex-col sm:flex-row items-center justify-between gap-4">
         <form class="w-full sm:w-96">
@@ -62,18 +70,21 @@ const deleteStudent = (id) => {
           </div>
         </form>
 
-        <button class="inline-flex items-center justify-center px-6 py-2 text-sm font-medium text-white bg-gradient-to-br from-cyan-500 to-blue-500 rounded-lg shadow hover:from-cyan-600 hover:to-blue-600 focus:ring-4 focus:ring-cyan-300 transition">
+        <button
+          class="inline-flex items-center justify-center px-6 py-2 text-sm font-medium text-white bg-gradient-to-br from-cyan-500 to-blue-500 rounded-lg shadow hover:from-cyan-600 hover:to-blue-600 focus:ring-4 focus:ring-cyan-300 transition"
+        >
           + Add Student
         </button>
       </div>
     </div>
 
+   
     <div class="overflow-x-auto mt-6 rounded-lg shadow">
       <table class="w-full text-sm text-left text-gray-600">
         <thead class="text-xs text-gray-700 uppercase bg-white">
           <tr>
             <th class="px-6 py-3">No</th>
-            <th class="px-6 py-3">Name</th>
+            <th class="px-6 py-3">Full Name</th>
             <th class="px-6 py-3">Class</th>
             <th class="px-6 py-3">ID Card</th>
             <th class="px-6 py-3">Actions</th>
@@ -88,9 +99,9 @@ const deleteStudent = (id) => {
             <td class="px-6 py-4 font-medium">
               {{ (currentPage - 1) * studentsPerPage + index + 1 }}
             </td>
-            <td class="px-6 py-4">{{ student.name }}</td>
+            <td class="px-6 py-4">{{ student.full_name }}</td>
             <td class="px-6 py-4">{{ student.class }}</td>
-            <td class="px-6 py-4">{{ student.idCard }}</td>
+            <td class="px-6 py-4">{{ student.id_card }}</td>
             <td class="px-6 py-4">
               <div class="flex gap-2">
                 <button class="px-4 py-1 text-white bg-blue-500 rounded hover:bg-blue-600">Edit</button>
@@ -110,6 +121,7 @@ const deleteStudent = (id) => {
       </table>
     </div>
 
+ 
     <div class="flex justify-end gap-2 mt-4">
       <button
         v-for="page in totalPages"
