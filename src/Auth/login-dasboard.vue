@@ -4,7 +4,6 @@ import { useRouter } from "vue-router";
 const router = useRouter();
 
 const handleLogin = () => {
-  // Simulate login
   localStorage.setItem("isLoggedIn", "true");
   router.push("/dashboard");
 };

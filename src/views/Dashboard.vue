@@ -3,7 +3,7 @@ import MonthlyChart from '../components/MonthlyChart.vue'
 </script>
 
 <template>
-  <div class="min-h-screen bg-gray-200 p-4">
+  <div class="min-h-screen bg-gradient-to-br from-green-500 to-blue-500 p-4">
     <div class="mb-6">
       <h1 class="text-3xl font-semibold text-gray-800">Dashboard</h1>
       <p class="text-sm text-gray-500 mt-1">

@@ -1,20 +1,18 @@
 <script setup>
 import { ref, computed } from 'vue'
 
-// Full student data
 const students = ref([
-  { id: 1, name: 'Student 1', class: 'A', age: 18 },
-  { id: 2, name: 'Student 2', class: 'B', age: 19 },
-  { id: 3, name: 'Student 3', class: 'A', age: 20 },
-  { id: 4, name: 'Student 4', class: 'C', age: 21 },
-  { id: 5, name: 'Student 5', class: 'D', age: 22 },
-  { id: 6, name: 'Student 6', class: 'B', age: 23 },
-  { id: 7, name: 'Student 7', class: 'A', age: 24 },
-  { id: 8, name: 'Student 8', class: 'C', age: 25 },
-  { id: 9, name: 'Student 9', class: 'B', age: 26 },
+  { id: 1, name: 'Student 1', class: 'A', idCard: 18 },
+  { id: 2, name: 'Student 2', class: 'B', idCard: 19 },
+  { id: 3, name: 'Student 3', class: 'A', idCard: 20 },
+  { id: 4, name: 'Student 4', class: 'C', idCard: 21 },
+  { id: 5, name: 'Student 5', class: 'D', idCard: 22 },
+  { id: 6, name: 'Student 6', class: 'B', idCard: 23 },
+  { id: 7, name: 'Student 7', class: 'A', idCard: 24 },
+  { id: 8, name: 'Student 8', class: 'C', idCard: 25 },
+  { id: 9, name: 'Student 9', class: 'B', idCard: 26 },
 ])
 
-// Search & Pagination
 const searchQuery = ref('')
 const currentPage = ref(1)
 const studentsPerPage = 4
@@ -45,19 +43,9 @@ const deleteStudent = (id) => {
 </script>
 
 <template>
-  <div class="min-h-screen bg-gradient-to-br from-green-100 to-blue-100 p-6">
-   
-    <div class="mb-6">
-      <h1 class="text-3xl font-semibold text-gray-800">StudentList</h1>
-      <p class="text-sm text-gray-500 mt-1">
-        <span class="text-purple-600 font-medium">Home</span> / student
-      </p>
-    </div>
-
-
+  <div class="min-h-screen bg-gradient-to-br from-green-500 to-blue-500 p-6">
     <div class="sticky top-0 z-10 bg-white shadow-md p-4 rounded-lg">
       <div class="flex flex-col sm:flex-row items-center justify-between gap-4">
-      
         <form class="w-full sm:w-96">
           <div class="relative">
             <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
@@ -74,31 +62,35 @@ const deleteStudent = (id) => {
           </div>
         </form>
 
-     
         <button class="inline-flex items-center justify-center px-6 py-2 text-sm font-medium text-white bg-gradient-to-br from-cyan-500 to-blue-500 rounded-lg shadow hover:from-cyan-600 hover:to-blue-600 focus:ring-4 focus:ring-cyan-300 transition">
           + Add Student
         </button>
       </div>
     </div>
 
-
     <div class="overflow-x-auto mt-6 rounded-lg shadow">
       <table class="w-full text-sm text-left text-gray-600">
         <thead class="text-xs text-gray-700 uppercase bg-white">
           <tr>
-            <th class="px-6 py-3">#</th>
+            <th class="px-6 py-3">No</th>
             <th class="px-6 py-3">Name</th>
             <th class="px-6 py-3">Class</th>
-            <th class="px-6 py-3">Age</th>
+            <th class="px-6 py-3">ID Card</th>
             <th class="px-6 py-3">Actions</th>
           </tr>
         </thead>
         <tbody>
-          <tr v-for="student in paginatedStudents" :key="student.id" class="bg-white/50 hover:bg-white/80 transition">
-            <td class="px-6 py-4 font-medium">{{ student.id }}</td>
+          <tr
+            v-for="(student, index) in paginatedStudents"
+            :key="student.id"
+            class="bg-white/50 hover:bg-white/80 transition"
+          >
+            <td class="px-6 py-4 font-medium">
+              {{ (currentPage - 1) * studentsPerPage + index + 1 }}
+            </td>
             <td class="px-6 py-4">{{ student.name }}</td>
             <td class="px-6 py-4">{{ student.class }}</td>
-            <td class="px-6 py-4">{{ student.age }}</td>
+            <td class="px-6 py-4">{{ student.idCard }}</td>
             <td class="px-6 py-4">
               <div class="flex gap-2">
                 <button class="px-4 py-1 text-white bg-blue-500 rounded hover:bg-blue-600">Edit</button>
@@ -111,14 +103,12 @@ const deleteStudent = (id) => {
               </div>
             </td>
           </tr>
-
           <tr v-if="paginatedStudents.length === 0">
             <td colspan="5" class="text-center py-4 text-gray-500">No students found.</td>
           </tr>
         </tbody>
       </table>
     </div>
-
 
     <div class="flex justify-end gap-2 mt-4">
       <button
@@ -127,8 +117,8 @@ const deleteStudent = (id) => {
         :class="[
           'px-3 py-1 rounded shadow',
           currentPage === page
-            ? 'bg-emerald-700 text-white'
-            : 'bg-white text-gray-600 hover:bg-gray-100 border'
+            ? 'bg-emerald-800 text-white'
+            : 'bg-white text-green-600 hover:bg-gray-100 border'
         ]"
         @click="setPage(page)"
       >

@@ -45,14 +45,8 @@ const deleteStudent = (id) => {
 </script>
 
 <template>
-  <div class="min-h-screen bg-gradient-to-br from-green-100 to-blue-100 p-6">
-   
-    <div class="mb-6">
-      <h1 class="text-3xl font-semibold text-gray-800">BooksList</h1>
-      <p class="text-sm text-gray-500 mt-1">
-        <span class="text-purple-600 font-medium">Home</span> / Books
-      </p>
-    </div>
+  <div class="min-h-screen bg-gradient-to-br from-green-500 to-blue-500 p-6">
+  
 
 
     <div class="sticky top-0 z-10 bg-white shadow-md p-4 rounded-lg">
@@ -127,8 +121,8 @@ const deleteStudent = (id) => {
         :class="[
           'px-3 py-1 rounded shadow',
           currentPage === page
-            ? 'bg-emerald-700 text-white'
-            : 'bg-white text-gray-600 hover:bg-gray-100 border'
+            ? 'bg-emerald-800 text-black'
+            : 'bg-white text-green-600 hover:bg-gray-100 border'
         ]"
         @click="setPage(page)"
       >
