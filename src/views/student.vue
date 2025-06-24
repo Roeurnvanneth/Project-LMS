@@ -2,16 +2,14 @@
 import { ref, computed, onMounted } from 'vue'
 import axios from 'axios'
 
-
 const students = ref([])
 const searchQuery = ref('')
 const currentPage = ref(1)
 const studentsPerPage = 4
 
-// Fetch API 
 const fetchStudents = async () => {
   try {
-    const token = localStorage.getItem('token') 
+    const token = localStorage.getItem('token')
     const res = await axios.get('http://localhost:3000/api/students?page=1&limit=100', {
       headers: {
         Authorization: `Bearer ${token}`
@@ -44,14 +42,27 @@ const setPage = (page) => {
   currentPage.value = page
 }
 
-const deleteStudent = (id) => {
-  students.value = students.value.filter(student => student.id !== id)
+const deleteStudent = async (id) => {
+  const confirmed = confirm('Are you sure you want to delete it?')
+  if (!confirmed) return
+
+  try {
+    const token = localStorage.getItem('token')
+    await axios.delete(`http://localhost:3000/api/students/${id}`, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    })
+    students.value = students.value.filter(student => student.id !== id)
+  } catch (error) {
+    console.error('Failed to delete student:', error)
+    alert('Failed to delete student.')
+  }
 }
 </script>
 
 <template>
   <div class="min-h-screen bg-gradient-to-br from-green-500 to-blue-500 p-6">
-   
     <div class="sticky top-0 z-10 bg-white shadow-md p-4 rounded-lg">
       <div class="flex flex-col sm:flex-row items-center justify-between gap-4">
         <form class="w-full sm:w-96">
@@ -70,15 +81,15 @@ const deleteStudent = (id) => {
           </div>
         </form>
 
-        <button
+        <router-link
+          to="/add-student"
           class="inline-flex items-center justify-center px-6 py-2 text-sm font-medium text-white bg-gradient-to-br from-cyan-500 to-blue-500 rounded-lg shadow hover:from-cyan-600 hover:to-blue-600 focus:ring-4 focus:ring-cyan-300 transition"
         >
           + Add Student
-        </button>
+        </router-link>
       </div>
     </div>
 
-   
     <div class="overflow-x-auto mt-6 rounded-lg shadow">
       <table class="w-full text-sm text-left text-gray-600">
         <thead class="text-xs text-gray-700 uppercase bg-white">
@@ -121,7 +132,6 @@ const deleteStudent = (id) => {
       </table>
     </div>
 
- 
     <div class="flex justify-end gap-2 mt-4">
       <button
         v-for="page in totalPages"
