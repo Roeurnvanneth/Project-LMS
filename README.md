@@ -1,29 +1,77 @@
-# Brief8-G5-LMS
+# 📚 Community Library Management System (LMS)
 
-This template should help get you started developing with Vue 3 in Vite.
+The Community Library Management System (LMS) is a web-based platform designed to help a mid-sized town library digitize its book and member management processes. It replaces manual tracking methods (like paper forms and Excel) with a modern, user-friendly system.
 
-## Recommended IDE Setup
+This system was developed by a group of junior developers within 3 weeks using modern technologies and Agile Scrum methodology.
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
+---
 
-## Customize configuration
+## 📌 Key Features
 
-See [Vite Configuration Reference](https://vite.dev/config/).
+- User registration and login for Admin and Members  
+- Book management (Add / Edit / Delete by Admin)  
+- Member registration (Admin only)  
+- Book borrowing and returning  
+- Borrowing history view (for both Admin and Members)  
+- Book availability tracking  
+- Role-Based Access Control (RBAC)
 
-## Project Setup
+---
 
-```sh
+## 🛠️ Technologies Used
+
+| Layer         | Technologies                  |
+|---------------|-------------------------------|
+| Frontend      | Vue.js 3, TailwindCSS          |
+| Backend       | Node.js, Express               |
+| Database      | MySQL                          |
+| UI/UX Design  | Figma                          |
+| Version Control | Git, GitHub                 |
+| Project Management | Trello / Notion          |
+
+---
+
+## 👥 User Roles
+
+### Admin  
+- Manage books (create, edit, delete)  
+- Register members  
+- Borrow/return books  
+- View all member borrowing history  
+
+### Member  
+- Browse books  
+- Borrow/return books  
+- View own borrowing history  
+
+---
+
+## 🗄️ Database Structure
+
+- ERD Diagram: `docs/ERD.pdf`
+
+### Main Tables:
+- `users` (Admin / Member)  
+- `books`  
+- `members`  
+- `borrow_records`
+
+---
+
+## 🧪 Test Accounts
+
+| Role   | Email               | Password    |
+|--------|---------------------|-------------|
+| Admin  | admin@library.com   | admin123    |
+| Member | member@library.com  | member123   |
+
+---
+
+## 💻 Local Development Setup
+
+### ✅ Backend
+
+```bash
+cd backend
 npm install
-```
-
-### Compile and Hot-Reload for Development
-
-```sh
-npm run dev
-```
-
-### Compile and Minify for Production
-
-```sh
-npm run build
-```
+touch .env
