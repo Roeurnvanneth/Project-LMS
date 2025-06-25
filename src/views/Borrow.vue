@@ -1,60 +1,130 @@
 <template>
-  <div class="min-h-screen bg-white p-6">
-    <h1 class="text-2xl font-bold mb-6">Borrowed Books</h1>
+  <div class="min-h-screen bg-gradient-to-br from-green-500 to-blue-500 p-6">
 
-    <div class="overflow-x-auto w-full">
-      <table class="w-full min-w-max border border-gray-300 divide-y divide-gray-200 text-sm text-left text-gray-700">
-        <thead class="bg-gray-100 text-gray-900">
+    <div class="sticky top-0 z-10 bg-white shadow-md p-4 rounded-lg">
+      <div class="flex flex-col sm:flex-row items-center justify-between gap-4">
+        
+        <form class="w-full sm:w-96">
+          <div class="relative">
+            <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
+              <svg class="w-4 h-4 text-gray-500" fill="none" viewBox="0 0 20 20">
+                <path stroke="currentColor" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
+              </svg>
+            </div>
+            <input
+              v-model="searchQuery"
+              type="search"
+              placeholder="Search by name..."
+              class="w-full ps-10 py-2 text-sm text-gray-900 border border-blue-400 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500"
+            />
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <div class="overflow-x-auto mt-6 rounded-lg shadow">
+      <table class="w-full text-sm text-left text-gray-600">
+        <thead class="text-xs text-gray-700 uppercase bg-white">
           <tr>
-            <th class="px-4 py-2">ID</th>
-            <th class="px-4 py-2">ID Card</th>
-            <th class="px-4 py-2">Full Name</th>
-            <th class="px-4 py-2">Book Title</th>
-            <th class="px-4 py-2">Borrow Date</th>
-            <th class="px-4 py-2">Return Date</th>
+            <th class="px-6 py-3">ID</th>
+            <th class="px-6 py-3">ID Card</th>
+            <th class="px-6 py-3">Full Name</th>
+            <th class="px-6 py-3">Book Title</th>
+            <th class="px-6 py-3">Borrow Date</th>
+            <th class="px-6 py-3">Return Date</th>
           </tr>
         </thead>
-        <tbody class="divide-y divide-gray-200">
-          <tr v-for="borrow in borrows" :key="borrow.id" class="hover:bg-gray-50">
-            <td class="px-4 py-2">{{ borrow.id }}</td>
-            <td class="px-4 py-2">{{ borrow.id_card }}</td>
-            <td class="px-4 py-2">{{ borrow.full_name }}</td>
-            <td class="px-4 py-2">{{ borrow.title }}</td>
-            <td class="px-4 py-2">{{ formatDate(borrow.borrow_date) }}</td>
-            <td class="px-4 py-2">{{ formatDate(borrow.return_date) }}</td>
+        <tbody>
+          <tr
+            v-for="borrow in filteredBorrows"
+            :key="borrow.id"
+            class="bg-white/50 hover:bg-white/80 transition"
+          >
+            <td class="px-6 py-4 font-medium">{{ borrow.id }}</td>
+            <td class="px-6 py-4">{{ borrow.id_card }}</td>
+            <td class="px-6 py-4">{{ borrow.full_name }}</td>
+            <td class="px-6 py-4">{{ borrow.title }}</td>
+            <td class="px-6 py-4">{{ formatDate(borrow.borrow_date) }}</td>
+            <td class="px-6 py-4">{{ formatDate(borrow.return_date) }}</td>
           </tr>
-          <tr v-if="borrows.length === 0">
-            <td colspan="6" class="text-center text-gray-400 py-4">No data found</td>
+          <tr v-if="filteredBorrows.length === 0">
+            <td colspan="6" class="text-center py-4 text-gray-500">No records found.</td>
           </tr>
         </tbody>
       </table>
+    </div>
+
+   
+    <div class="flex justify-end gap-2 mt-4">
+      <button
+        v-for="page in totalPages"
+        :key="page"
+        :class="[
+          'px-3 py-1 rounded shadow',
+          currentPage === page
+            ? 'bg-emerald-800 text-black'
+            : 'bg-white text-green-600 hover:bg-gray-100 border'
+        ]"
+        @click="setPage(page)"
+      >
+        {{ page }}
+      </button>
     </div>
   </div>
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref, computed, onMounted } from 'vue'
 import axios from 'axios'
 
 const borrows = ref([])
+const searchQuery = ref('')
+const currentPage = ref(1)
+const totalPages = ref(1)
+const perPage = 10
 
 const fetchBorrows = async () => {
   try {
-    const response = await axios.get('http://localhost:3000/api/borrows?page=1&limit=15')
+    const token = localStorage.getItem('token') 
+    const response = await axios.get('http://localhost:3000/api/borrows', {
+      params: {
+        page: currentPage.value,
+        limit: perPage
+      },
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    })
 
-    // ✅ Because your API returns a plain array
-    console.log('✅ Got data:', response.data)
-    borrows.value = response.data
+    borrows.value = response.data.borrows || []
+    totalPages.value = response.data.totalPages || 1
   } catch (error) {
-    console.error('❌ Failed to fetch data:', error)
+    console.error('Failed to fetch borrows:', error)
   }
 }
 
-const formatDate = (dateString) => {
-  if (!dateString) return '-'
-  const date = new Date(dateString)
-  return isNaN(date) ? 'Invalid Date' : date.toLocaleString()
+
+const formatDate = (dateStr) => {
+  const date = new Date(dateStr)
+  return date.toLocaleDateString()
 }
 
-onMounted(fetchBorrows)
+
+const filteredBorrows = computed(() => {
+  return borrows.value.filter(b =>
+    b.full_name.toLowerCase().includes(searchQuery.value.toLowerCase())
+  )
+})
+
+const setPage = (page) => {
+  currentPage.value = page
+  fetchBorrows()
+}
+
+onMounted(() => {
+  fetchBorrows()
+})
 </script>
+
+<style scoped>
+</style>
