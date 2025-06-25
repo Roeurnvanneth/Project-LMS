@@ -10,17 +10,17 @@ import AddNewStudent from "@/views/AddNewStudent.vue";
 import AddNewBook from "@/views/AddNewBook.vue";
 
 const routes = [
-  { path: '/', redirect: '/books' },
   { path: '/books', component: Book },
   { path: '/add-book', component: AddNewBook },
   { path: '/', component: Hero, meta: { layout: 'auth' } },
   { path: '/students', component: Student, meta: { layout: 'main' } },
   { path: '/add-student', component: AddNewStudent, meta: { layout: 'main' } },
-  { path: '/login-book', component: Login, meta: { layout: 'auth' } },
+  { path: '/login', component: Login, meta: { layout: 'auth' } },
   { path: '/dashboard', component: Dashboard, meta: { layout: 'main' } },
   { path: '/book', component: Book, meta: { layout: 'main' } },
   { path: '/borrow', component: Borrow, meta: { layout: 'main' } },
   { path: '/student', component: Student, meta: { layout: 'main' } },
+  
 ];
 
 const router = createRouter({
