@@ -1,6 +1,7 @@
 <script setup>
 import { ref } from "vue";
 import { useRouter } from "vue-router";
+
 const router = useRouter();
 
 const form = ref({
@@ -20,7 +21,31 @@ const categories = [
   { id: 5, name: "Literature" },
 ];
 
+const submitForm = async () => {
+  try {
+    const token = localStorage.getItem("token");
 
+    const response = await fetch("http://localhost:3000/api/books", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${token}`,
+      },
+      body: JSON.stringify(form.value),
+    });
+
+    if (!response.ok) {
+      const errorData = await response.json();
+      throw new Error(errorData.message || "Failed to add book");
+    }
+
+    alert("Book added successfully!");
+    router.push("/book");
+  } catch (error) {
+    alert("Error: " + error.message);
+    console.error("Failed to submit book:", error);
+  }
+};
 </script>
 
 <template>
