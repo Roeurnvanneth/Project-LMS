@@ -1,4 +1,3 @@
-<!-- src/views/AddNewStudent.vue -->
 <script setup>
 import { ref } from "vue";
 import axios from "axios";
@@ -13,21 +12,20 @@ const submitForm = async () => {
   try {
     const token = localStorage.getItem("token");
 
-    const response =
-      (await axios.post(
-        "http://localhost:3000/api/students",
-        {
-          full_name: fullName.value,
-          student_class: studentClass.value,
-          id_card: idCard.value,
+    const response = await axios.post(
+      "http://localhost:3000/api/students",
+      {
+        full_name: fullName.value,
+        student_class: studentClass.value,
+        id_card: idCard.value,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
         },
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      ))
-       
+      }
+    );
+
     router.push("/students");
   } catch (error) {
     console.error("Failed to add student:", error);

@@ -1,9 +1,9 @@
 <template>
   <div class="min-h-screen bg-gradient-to-br from-green-500 to-blue-500 p-6">
-   
+    <!-- Top Bar -->
     <div class="sticky top-0 z-10 bg-white shadow-md p-4 rounded-lg">
       <div class="flex flex-col sm:flex-row items-center justify-between gap-4">
-        
+        <!-- Search -->
         <form class="w-full sm:w-96">
           <div class="relative">
             <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
@@ -20,10 +20,13 @@
           </div>
         </form>
 
-     
-        <button class="inline-flex items-center justify-center px-6 py-2 text-sm font-medium text-white bg-gradient-to-br from-cyan-500 to-blue-500 rounded-lg shadow hover:from-cyan-600 hover:to-blue-600 focus:ring-4 focus:ring-cyan-300 transition">
-          + Add Book
-        </button>
+        <!-- Add Book Button -->
+        <router-link
+          to="/add-book"
+          class="inline-flex items-center justify-center px-6 py-2 text-sm font-medium text-white bg-gradient-to-br from-cyan-500 to-blue-500 rounded-lg shadow hover:from-cyan-600 hover:to-blue-600 focus:ring-4 focus:ring-cyan-300 transition"
+        >
+          + Add book
+        </router-link>
       </div>
     </div>
 
@@ -98,7 +101,7 @@ const searchQuery = ref('')
 const currentPage = ref(1)
 const booksPerPage = 5
 
-
+// Fetch books from API
 const fetchBooks = async () => {
   try {
     const token = localStorage.getItem('token')
@@ -107,16 +110,18 @@ const fetchBooks = async () => {
         Authorization: `Bearer ${token}`
       }
     })
-    books.value = response.data.books 
+    books.value = response.data.books
   } catch (error) {
     console.error('Failed to fetch books:', error)
   }
 }
 
+// Run on page load
 onMounted(() => {
   fetchBooks()
 })
 
+// Filtered + paginated logic
 const filteredBooks = computed(() =>
   books.value.filter(book =>
     book.title.toLowerCase().includes(searchQuery.value.toLowerCase())
@@ -136,10 +141,28 @@ const setPage = (page) => {
   currentPage.value = page
 }
 
-const deleteBook = (id) => {
-  books.value = books.value.filter(book => book.id !== id)
+// Delete book from API
+const deleteBook = async (id) => {
+  const confirmed = confirm("Are you sure you want to delete this book?");
+  if (!confirmed) return;
+
+  try {
+    const token = localStorage.getItem("token");
+    await axios.delete(`http://localhost:3000/api/books/${id}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    await fetchBooks(); // Re-fetch after deletion
+    alert("Book deleted successfully!");
+  } catch (error) {
+    console.error("Failed to delete book:", error);
+    alert("Error deleting book.");
+  }
 }
 </script>
 
 <style scoped>
+/* Optional: style improvements */
 </style>
