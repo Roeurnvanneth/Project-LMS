@@ -60,10 +60,10 @@ This system was developed by a group of junior developers within 3 weeks using m
 
 ## 🧪 Test Accounts
 
-| Role   | Email               | Password    |
+| Role   | UserName            | Password    |
 |--------|---------------------|-------------|
-| Admin  | admin@library.com   | admin123    |
-| Member | member@library.com  | member123   |
+| Admin  | liberian1           | password123 |
+
 
 ---
 
