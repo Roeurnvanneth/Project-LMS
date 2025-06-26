@@ -13,7 +13,7 @@ const handleSubmit = async (e) => {
   errorMessage.value = "";
 
   try {
-    const res = await fetch("http://localhost:4000/api/auth/login", {
+    const res = await fetch("http://localhost:3000/api/auth/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

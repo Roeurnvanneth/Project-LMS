@@ -47,7 +47,7 @@ onMounted(fetchDashboardData);
         </p>
         <p class="text-green-500 text-sm mt-1">
           ▲ {{ dashboardData.total_students}}
-          <span class="text-gray-500">from this month</span>
+         
         </p>
       </div>
 
@@ -58,7 +58,7 @@ onMounted(fetchDashboardData);
         </p>
         <p class="text-green-500 text-sm mt-1">
           ▲ {{ dashboardData.total_books }}
-          <span class="text-gray-500">from this month</span>
+         
         </p>
       </div>
 
@@ -69,28 +69,28 @@ onMounted(fetchDashboardData);
         </p>
         <p class="text-green-500 text-sm mt-1">
           ▲ {{ dashboardData.total_borrows }}
-          <span class="text-gray-500">from this month</span>
+          
         </p>
       </div>
       <div class="bg-white p-6 rounded-lg shadow-md">
-        <h2 class="text-sm text-gray-500 font-medium">borrowed_not_returned</h2>
+        <h2 class="text-sm text-gray-500 font-medium">Borrowed not returned</h2>
         <p class="text-2xl font-bold text-gray-800 mt-1">
           {{ dashboardData.borrowed_not_returned }}
         </p>
         <p class="text-green-500 text-sm mt-1">
           ▲ {{ dashboardData.borrowed_not_returned }}
-          <span class="text-gray-500">from this month</span>
+       
         </p>
       </div>
 
        <div class="bg-white p-6 rounded-lg shadow-md">
-        <h2 class="text-sm text-gray-500 font-medium">returned</h2>
+        <h2 class="text-sm text-gray-500 font-medium">Returned</h2>
         <p class="text-2xl font-bold text-gray-800 mt-1">
           {{ dashboardData.returned}}
         </p>
         <p class="text-green-500 text-sm mt-1">
           ▲ {{ dashboardData.returned }}
-          <span class="text-gray-500">from this month</span>
+         
         </p>
         
       </div>
