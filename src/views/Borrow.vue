@@ -17,8 +17,18 @@
               placeholder="Search by name..."
               class="w-full ps-10 py-2 text-sm text-gray-900 border border-blue-400 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500"
             />
+
+            
           </div>
         </form>
+
+        <router-link
+          to="/add-borrows"
+          class="inline-flex items-center justify-center px-6 py-2 text-sm font-medium text-white bg-gradient-to-br from-cyan-500 to-blue-500 rounded-lg shadow hover:from-cyan-600 hover:to-blue-600 focus:ring-4 focus:ring-cyan-300 transition"
+          >
+          + Add Borrow
+        </router-link>
+
       </div>
     </div>
 

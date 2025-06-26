@@ -8,10 +8,12 @@ import Login from "@/Auth/login-dasboard.vue";
 import Hero from "@/Auth/login.vue";
 import AddNewStudent from "@/views/AddNewStudent.vue";
 import AddNewBook from "@/views/AddNewBook.vue";
+import AddNewBorrows from "@/views/AddNewBorrow.vue";
 
 const routes = [
   { path: '/books', component: Book },
   { path: '/add-book', component: AddNewBook },
+  { path: '/add-borrows', component: AddNewBorrows },
   { path: '/', component: Hero, meta: { layout: 'auth' } },
   { path: '/students', component: Student, meta: { layout: 'main' } },
   { path: '/add-student', component: AddNewStudent, meta: { layout: 'main' } },
