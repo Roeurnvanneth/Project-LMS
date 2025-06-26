@@ -22,10 +22,10 @@ This system was developed by a group of junior developers within 3 weeks using m
 
 | Layer         | Technologies                  |
 |---------------|-------------------------------|
-| Frontend      | Vue.js 3, TailwindCSS          |
-| Backend       | Node.js, Express               |
-| Database      | MySQL                          |
-| UI/UX Design  | Figma                          |
+| Frontend      | Vue.js 3, TailwindCSS         |
+| Backend       | Node.js, Express              |
+| Database      | MySQL                         |
+| UI/UX Design  | Figma                         |
 | Version Control | Git, GitHub                 |
 | Project Management | Trello / Notion          |
 
@@ -33,16 +33,11 @@ This system was developed by a group of junior developers within 3 weeks using m
 
 ## 👥 User Roles
 
-### Admin  
+### liberian1  
 - Manage books (create, edit, delete)  
 - Register members  
 - Borrow/return books  
 - View all member borrowing history  
-
-### Member  
-- Browse books  
-- Borrow/return books  
-- View own borrowing history  
 
 ---
 
@@ -51,7 +46,7 @@ This system was developed by a group of junior developers within 3 weeks using m
 - ERD Diagram: `docs/ERD.pdf`
 
 ### Main Tables:
-- `users` (Admin / Member)  
+- `users` (liberian1)  
 - `books`  
 - `members`  
 - `borrow_records`
