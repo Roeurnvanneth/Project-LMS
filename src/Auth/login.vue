@@ -13,7 +13,7 @@ const handleSubmit = async (e) => {
   errorMessage.value = "";
 
   try {
-    const res = await fetch("http://localhost:3000/api/auth/login", {
+    const res = await fetch("http://localhost:4000/api/auth/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -91,7 +91,7 @@ const handleSubmit = async (e) => {
           <div class="flex justify-center">
             <button
               type="submit"
-              class="w-1/2 bg-gradient-to-br from-cyan-500 to-green-500 rounded-lg shadow bg-green-500 focus:outline-none focus:ring-4 focus:ring-cyan-300 transition rounded-lg font-bold text-white py-2 rounded-full  transition"
+              class="w-1/2 bg-gradient-to-br from-cyan-500 to-green-500 rounded-lg shadow bg-green-500 focus:outline-none focus:ring-4 focus:ring-cyan-300 transition rounded-lg font-bold text-white py-2 rounded-full transition"
             >
               Login
             </button>
