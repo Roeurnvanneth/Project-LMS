@@ -69,4 +69,5 @@ This system was developed by a group of junior developers within 3 weeks using m
 ```bash
 cd backend
 npm install
+npm run dev
 touch .env
