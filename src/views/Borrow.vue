@@ -1,10 +1,8 @@
-<!-- BorrowManagement.vue -->
+
 <template>
   <div class="min-h-screen bg-gradient-to-br from-green-500 to-blue-500 p-6">
-    <!-- Top Header -->
     <div class="sticky top-0 z-10 bg-white shadow-md p-4 rounded-lg mb-6">
       <div class="flex flex-col sm:flex-row items-center justify-between gap-4 max-w-6xl mx-auto">
-        <!-- Search bar -->
         <div class="w-full sm:w-96">
           <form>
             <div class="relative">
@@ -25,50 +23,110 @@
     </div>
 
     <!-- Borrow Form -->
-    <transition name="fade">
-      <form v-show="isFormVisible" @submit.prevent="handleAddBorrow" class="bg-white p-6 rounded shadow space-y-6 max-w-4xl mx-auto mb-10">
-        <div class="grid md:grid-cols-2 gap-4">
-          <!-- Book Search -->
-          <div class="relative">
-            <input v-model="bookSearch" type="text" placeholder="Type book title..." class="w-full border px-3 py-2 rounded" autocomplete="off" />
-            <ul v-if="bookSearch && filteredBooks.length" class="absolute z-20 bg-white border w-full rounded shadow max-h-44 overflow-y-auto mt-1">
-              <li v-for="book in filteredBooks" :key="book.id" @click="selectBook(book)" class="px-3 py-2 hover:bg-blue-100 cursor-pointer flex justify-between items-center">
-                <span>{{ book.title }} — {{ book.author_name || "Unknown" }}</span>
-                <button @click.stop="handleDeleteBook(book)" class="px-3 py-1 text-white bg-red-500 rounded hover:bg-red-600" :disabled="deletingBookId === book.id">
-                  {{ deletingBookId === book.id ? "Deleting..." : "Delete" }}
-                </button>
-              </li>
-            </ul>
-          </div>
+<transition name="fade">
+  <form
+    v-show="isFormVisible"
+    @submit.prevent="handleAddBorrow"
+    class="bg-white p-6 rounded-lg shadow-xl space-y-6 max-w-4xl mx-auto mb-10 transition-all duration-300"
+  >
+    <h2 class="text-2xl font-semibold text-gray-800 border-b pb-2 mb-4">📚 New Borrow Record</h2>
 
-          <!-- Student Search -->
-          <div class="relative">
-            <input v-model="studentSearch" type="text" placeholder="Type student name..." class="w-full border px-3 py-2 rounded" autocomplete="off" />
-            <ul v-if="studentSearch && filteredStudents.length" class="absolute z-20 bg-white border w-full rounded shadow max-h-44 overflow-y-auto mt-1">
-              <li v-for="student in filteredStudents" :key="student.id" @click="selectStudent(student)" class="px-3 py-2 hover:bg-blue-100 cursor-pointer">
-                {{ student.full_name }} <small>({{ student.class || "N/A" }})</small>
-              </li>
-            </ul>
-          </div>
+    <div class="grid md:grid-cols-2 gap-6">
+      <!-- Book Search -->
+      <div class="relative">
+        <label for="bookSearch" class="block text-sm font-medium text-gray-700 mb-1">Search Book</label>
+        <input
+          id="bookSearch"
+          v-model="bookSearch"
+          type="text"
+          placeholder="Type book title..."
+          class="w-full border border-gray-300 px-4 py-2 rounded-lg focus:ring-2 focus:ring-blue-400"
+          autocomplete="off"
+        />
+        <ul
+          v-if="bookSearch && filteredBooks.length"
+          class="absolute z-20 bg-white border w-full rounded shadow max-h-48 overflow-y-auto mt-1"
+        >
+          <li
+            v-for="book in filteredBooks"
+            :key="book.id"
+            @click="selectBook(book)"
+            class="px-4 py-2 hover:bg-blue-100 cursor-pointer flex justify-between items-center"
+          >
+            <span>{{ book.title }} — {{ book.author_name || "Unknown" }}</span>
+            <button
+              @click.stop="handleDeleteBook(book)"
+              class="px-3 py-1 text-sm text-white bg-red-500 rounded hover:bg-red-600 disabled:opacity-50"
+              :disabled="deletingBookId === book.id"
+            >
+              {{ deletingBookId === book.id ? "Deleting..." : "Delete" }}
+            </button>
+          </li>
+        </ul>
+      </div>
 
-          <!-- Borrow Date -->
-          <div>
-            <label class="block text-sm font-medium text-gray-700 mb-1">Borrow Date</label>
-            <input type="date" v-model="form.borrow_date" class="w-full border px-3 py-2 rounded" />
-          </div>
+      <!-- Student Search -->
+      <div class="relative">
+        <label for="studentSearch" class="block text-sm font-medium text-gray-700 mb-1">Search Student</label>
+        <input
+          id="studentSearch"
+          v-model="studentSearch"
+          type="text"
+          placeholder="Type student name..."
+          class="w-full border border-gray-300 px-4 py-2 rounded-lg focus:ring-2 focus:ring-blue-400"
+          autocomplete="off"
+        />
+        <ul
+          v-if="studentSearch && filteredStudents.length"
+          class="absolute z-20 bg-white border w-full rounded shadow max-h-48 overflow-y-auto mt-1"
+        >
+          <li
+            v-for="student in filteredStudents"
+            :key="student.id"
+            @click="selectStudent(student)"
+            class="px-4 py-2 hover:bg-blue-100 cursor-pointer"
+          >
+            {{ student.full_name }} <small class="text-gray-500">({{ student.class || "N/A" }})</small>
+          </li>
+        </ul>
+      </div>
 
-          <!-- Return Date -->
-          <div>
-            <label class="block text-sm font-medium text-gray-700 mb-1">Return Date (optional)</label>
-            <input type="date" v-model="form.return_date" class="w-full border px-3 py-2 rounded" />
-          </div>
-        </div>
+      <!-- Borrow Date -->
+      <div>
+        <label for="borrowDate" class="block text-sm font-medium text-gray-700 mb-1">Borrow Date</label>
+        <input
+          id="borrowDate"
+          type="date"
+          v-model="form.borrow_date"
+          class="w-full border border-gray-300 px-4 py-2 rounded-lg focus:ring-2 focus:ring-blue-400"
+        />
+      </div>
 
-        <button type="submit" class="w-full mt-7 text-white bg-gradient-to-br from-cyan-500 to-blue-500 rounded-lg py-2 hover:from-cyan-600 hover:to-blue-600" :disabled="!form.student_id || !form.book_id">
-          Submit
-        </button>
-      </form>
-    </transition>
+      <!-- Return Date -->
+      <div>
+        <label for="returnDate" class="block text-sm font-medium text-gray-700 mb-1">Return Date (optional)</label>
+        <input
+          id="returnDate"
+          type="date"
+          v-model="form.return_date"
+          class="w-full border border-gray-300 px-4 py-2 rounded-lg focus:ring-2 focus:ring-blue-400"
+        />
+      </div>
+    </div>
+
+   
+
+    <!-- Submit -->
+    <button
+      type="submit"
+      class="w-full mt-6 text-white bg-gradient-to-r from-cyan-500 to-blue-500 hover:from-cyan-600 hover:to-blue-600 rounded-lg py-2 font-semibold text-lg disabled:opacity-50"
+      :disabled="!form.student_id || !form.book_id"
+    >
+     Submit 
+    </button>
+  </form>
+</transition>
+
 
     <!-- Loading State -->
     <div v-if="isLoading" class="text-center py-10">
